@@ -2,30 +2,59 @@ class MyException(Exception):
     pass
 
 class ExceptionsDemo:
-    
     def divide(self, a, b):
-        result = a / b
-        print("Division result:", result)
-    
-    def access_list(self, lst, index):
-        print("Element:", lst[index])
-    
-    def access_dict(self, dic, key):
-        print("Value:", dic[key])
-    
-    def read_file(self, filename):
-        with open(filename, "r") as f:
-            content = f.read()
-            print(content)
-    
-    def access_attribute(self, obj):
-        print(obj.tnonexistent_attribue)
-    
-    def check_positive(self, number):
-        if number < 0:
-            raise MyException("The number must be positive.")
+        try:
+            result = a / b
+        except ZeroDivisionError:
+            print("Cant divide by zero.")
+        except TypeError:
+            print("Use Numbers.")
         else:
+            print("Division result:", result)
+
+    def access_list(self, lst, index):
+        try:
+            print("Element:", lst[index])
+        except IndexError:
+            print("Index out of range.")
+        except TypeError:
+            print("Invalid object.")
+
+    def access_dict(self, dic, key):
+        try:
+            print("Value:", dic[key])
+        except KeyError:
+            print("Code does not exist.")
+        except TypeError:
+            print("Invalid Object.")
+
+    def read_file(self, filename):
+        try:
+            with open(filename, "r") as f:
+                content = f.read()
+                print(content)
+        except FileNotFoundError:
+            print(f"File not found.")
+        except IOError:
+            print(f"reading error.")
+
+    def access_attribute(self, obj):
+        try:
+            print(obj.tnonexistent_attribue)
+        except AttributeError:
+            print("Atribute does not exist.")
+
+    def check_positive(self, number):
+        try:
+            if number < 0:
+                raise MyException("The number must be positive.")
             print("Valid number:", number)
+        except TypeError:
+            print("Number expected.")
+        except MyException as e:
+            print("Custom error:", e)
+
+
 
 
 class MyException(Exception):
